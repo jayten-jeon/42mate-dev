@@ -76,7 +76,7 @@ def command_main():
     elif command == 'list':
         list
 
-    return ('', 200)
+    return ("", 200)
 
 if __name__ == "__main__":
     app.run()
