@@ -89,7 +89,6 @@ def command_view():
         slack.chat.post_message(channel=channel, text="re-visit text", attachments=attachments)
     else:
         register(slack_id[0], user_name[0])
-        update_without_register_button()
         slack.chat.post_message(channel=channel, text="first-visit-text", attachments=attachments)
     return ("", 200)
 
