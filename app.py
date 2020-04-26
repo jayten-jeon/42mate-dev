@@ -36,60 +36,92 @@ def register(slack_id, intra_id):
             return(str(e))
 
 
-@app.route("/slack/command", methods=['POST'])
-def command_view():
-    slack_id = request.form.getlist('user_id')
-    user_name = request.form.getlist('user_name')
-    attachments = [
+def get_blocks():
+    blocks = [
         {
-            "fallback": "You are unable to choose a action",
-            "callback_id": "choose_action",
-            "color": "#FF6F61",
-            "attachment_type": "default",
-            "actions": [
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "42MATE에 오신걸 환영합니다!!"
+            }
+        },
+        {
+            "type": "actions",
+            "elements": [
                 {
-                    "name": "join",
-                    "text": "내일 만나기",
-                    "style": "primary",
                     "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "emoji": true,
+                        "text": "42mate 등록하기"
+                    },
+                    "style": "primary",
+                    "value": "register"
+                },
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "emoji": true,
+                        "text": "내일 만나기"
+                    },
+                    "style": "primary",
                     "value": "join"
                 },
                 {
-                    "name": "bye",
-                    "text": "내일 만나지 않기",
                     "type": "button",
-                    "value": "bye"
-                },
-                {
-                    "name": "register",
-                    "text": "42mate 등록하기",
-                    "style": "primary",
-                    "type": "button",
-                    "value": "register",
-                },
-                {
-                    "name": "unregister",
-                    "text": "42mate 휴식하기",
+                    "text": {
+                        "type": "plain_text",
+                        "emoji": true,
+                        "text": "내일 만나지 않기"
+                    },
                     "style": "danger",
+                    "value": "unjoin"
+                },
+                {
                     "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "emoji": true,
+                        "text": "42mate 휴식하기"
+                    },
+                    "style": "danger",
                     "value": "unregister",
                     "confirm": {
-                        "title": "정말 휴식하시겠어요?",
-                        "text": "언제라도 다시 돌아오세요.",
-                        "ok_text": "휴식하기",
-                        "dismiss_text": "더 생각해보기"
+                        "title": {
+                            "type": "plain_text",
+                            "text": "정말 휴식하시겠어요?"
+                        },
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "언제라도 다시 돌아오세요"
+                        },
+                        "confirm": {
+                            "type": "plain_text",
+                            "text": "휴식하기"
+                        },
+                        "deny": {
+                            "type": "plain_text",
+                            "text": "더 생각해보기"
+                        }
                     }
                 }
             ]
         }
     ]
+    return blocks
+@app.route("/slack/command", methods=['POST'])
+def command_view():
+    slack_id = request.form.getlist('user_id')
+    user_name = request.form.getlist('user_name')
+    blocks = get_blocks()
     response = slack.conversations.open(users=slack_id, return_im=True)
     channel = response.body['channel']['id']
     if User.query.filter_by(slack_id=slack_id[0]).count():
         slack.chat.post_message(channel=channel, text="re-visit text", attachments=attachments)
     else:
         register(slack_id[0], user_name[0])
-        slack.chat.post_message(channel=channel, text="first-visit-text", attachments=attachments)
+        slack.chat.post_message(channel=channel, text="first-visit-text", blocks=blocks)
     return ("", 200)
 
 
