@@ -37,73 +37,104 @@ def register(slack_id, intra_id):
 
 
 def get_blocks():
+    # blocks = [
+    #     {
+    #         "type": "section",
+    #         "text": {
+    #             "type": "mrkdwn",
+    #             "text": "42MATE에 오신걸 환영합니다!!"
+    #         }
+    #     },
+    #     {
+    #         "type": "actions",
+    #         "elements": [
+    #             {
+    #                 "type": "button",
+    #                 "text": {
+    #                     "type": "plain_text",
+    #                     "text": "42mate 등록하기"
+    #                 },
+    #                 "style": "primary",
+    #                 "value": "register"
+    #             },
+    #             {
+    #                 "type": "button",
+    #                 "text": {
+    #                     "type": "plain_text",
+    #                     "text": "내일 만나기"
+    #                 },
+    #                 "style": "primary",
+    #                 "value": "join"
+    #             },
+    #             {
+    #                 "type": "button",
+    #                 "text": {
+    #                     "type": "plain_text",
+    #                     "text": "내일 만나지 않기"
+    #                 },
+    #                 "style": "danger",
+    #                 "value": "unjoin"
+    #             },
+    #             {
+    #                 "type": "button",
+    #                 "text": {
+    #                     "type": "plain_text",
+    #                     "text": "42mate 휴식하기"
+    #                 },
+    #                 "style": "danger",
+    #                 "value": "unregister",
+    #                 "confirm": {
+    #                     "title": {
+    #                         "type": "plain_text",
+    #                         "text": "정말 휴식하시겠어요?"
+    #                     },
+    #                     "text": {
+    #                         "type": "mrkdwn",
+    #                         "text": "언제라도 다시 돌아오세요"
+    #                     },
+    #                     "confirm": {
+    #                         "type": "plain_text",
+    #                         "text": "휴식하기"
+    #                     },
+    #                     "deny": {
+    #                         "type": "plain_text",
+    #                         "text": "더 생각해보기"
+    #                     }
+    #                 }
+    #             }
+    #         ]
+    #     }
+    # ]
     blocks = [
         {
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "42MATE에 오신걸 환영합니다!!"
+                "text": "Danny Torrence left the following review for your property:"
             }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "<https://example.com|Overlook Hotel> \n :star: \n Doors had too many axe holes, guest in room " +
+                        "237 was far too rowdy, whole place felt stuck in the 1920s."
+            },
+            "accessory": {
+                "type": "image",
+                "image_url": "https://images.pexels.com/photos/750319/pexels-photo-750319.jpeg",
+                "alt_text": "Haunted hotel image"
+            }
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Average Rating*\n1.0"
+                }
+            ]
         }
-        # {
-        #     "type": "actions",
-        #     "elements": [
-        #         {
-        #             "type": "button",
-        #             "text": {
-        #                 "type": "plain_text",
-        #                 "text": "42mate 등록하기"
-        #             },
-        #             "style": "primary",
-        #             "value": "register"
-        #         },
-        #         {
-        #             "type": "button",
-        #             "text": {
-        #                 "type": "plain_text",
-        #                 "text": "내일 만나기"
-        #             },
-        #             "style": "primary",
-        #             "value": "join"
-        #         },
-        #         {
-        #             "type": "button",
-        #             "text": {
-        #                 "type": "plain_text",
-        #                 "text": "내일 만나지 않기"
-        #             },
-        #             "style": "danger",
-        #             "value": "unjoin"
-        #         },
-        #         {
-        #             "type": "button",
-        #             "text": {
-        #                 "type": "plain_text",
-        #                 "text": "42mate 휴식하기"
-        #             },
-        #             "style": "danger",
-        #             "value": "unregister",
-        #             "confirm": {
-        #                 "title": {
-        #                     "type": "plain_text",
-        #                     "text": "정말 휴식하시겠어요?"
-        #                 },
-        #                 "text": {
-        #                     "type": "mrkdwn",
-        #                     "text": "언제라도 다시 돌아오세요"
-        #                 },
-        #                 "confirm": {
-        #                     "type": "plain_text",
-        #                     "text": "휴식하기"
-        #                 },
-        #                 "deny": {
-        #                     "type": "plain_text",
-        #                     "text": "더 생각해보기"
-        #                 }
-        #             }
-        #         }
-        #     ]
-        # }
     ]
     return blocks
 @app.route("/slack/command", methods=['POST'])
@@ -114,7 +145,7 @@ def command_view():
     response = slack.conversations.open(users=slack_id, return_im=True)
     channel = response.body['channel']['id']
     if User.query.filter_by(slack_id=slack_id[0]).count():
-        slack.chat.post_message(channel=channel, text="TEST", blocks=blocks)
+        slack.chat.post_message(channel=channel, blocks=blocks)
     else:
         register(slack_id[0], user_name[0])
         slack.chat.post_message(channel=channel, blocks=blocks)
