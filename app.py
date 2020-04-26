@@ -52,7 +52,7 @@ def get_blocks():
                     "type": "button",
                     "text": {
                         "type": "plain_text",
-                        "emoji": true,
+                        "emoji": True,
                         "text": "42mate 등록하기"
                     },
                     "style": "primary",
@@ -62,7 +62,7 @@ def get_blocks():
                     "type": "button",
                     "text": {
                         "type": "plain_text",
-                        "emoji": true,
+                        "emoji": True,
                         "text": "내일 만나기"
                     },
                     "style": "primary",
@@ -72,7 +72,7 @@ def get_blocks():
                     "type": "button",
                     "text": {
                         "type": "plain_text",
-                        "emoji": true,
+                        "emoji": True,
                         "text": "내일 만나지 않기"
                     },
                     "style": "danger",
@@ -82,7 +82,7 @@ def get_blocks():
                     "type": "button",
                     "text": {
                         "type": "plain_text",
-                        "emoji": true,
+                        "emoji": True,
                         "text": "42mate 휴식하기"
                     },
                     "style": "danger",
