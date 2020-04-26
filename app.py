@@ -44,66 +44,66 @@ def get_blocks():
                 "type": "mrkdwn",
                 "text": "42MATE에 오신걸 환영합니다!!"
             }
-        },
-        {
-            "type": "actions",
-            "elements": [
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "42mate 등록하기"
-                    },
-                    "style": "primary",
-                    "value": "register"
-                },
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "내일 만나기"
-                    },
-                    "style": "primary",
-                    "value": "join"
-                },
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "내일 만나지 않기"
-                    },
-                    "style": "danger",
-                    "value": "unjoin"
-                },
-                {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "42mate 휴식하기"
-                    },
-                    "style": "danger",
-                    "value": "unregister",
-                    "confirm": {
-                        "title": {
-                            "type": "plain_text",
-                            "text": "정말 휴식하시겠어요?"
-                        },
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "언제라도 다시 돌아오세요"
-                        },
-                        "confirm": {
-                            "type": "plain_text",
-                            "text": "휴식하기"
-                        },
-                        "deny": {
-                            "type": "plain_text",
-                            "text": "더 생각해보기"
-                        }
-                    }
-                }
-            ]
         }
+        # {
+        #     "type": "actions",
+        #     "elements": [
+        #         {
+        #             "type": "button",
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "text": "42mate 등록하기"
+        #             },
+        #             "style": "primary",
+        #             "value": "register"
+        #         },
+        #         {
+        #             "type": "button",
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "text": "내일 만나기"
+        #             },
+        #             "style": "primary",
+        #             "value": "join"
+        #         },
+        #         {
+        #             "type": "button",
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "text": "내일 만나지 않기"
+        #             },
+        #             "style": "danger",
+        #             "value": "unjoin"
+        #         },
+        #         {
+        #             "type": "button",
+        #             "text": {
+        #                 "type": "plain_text",
+        #                 "text": "42mate 휴식하기"
+        #             },
+        #             "style": "danger",
+        #             "value": "unregister",
+        #             "confirm": {
+        #                 "title": {
+        #                     "type": "plain_text",
+        #                     "text": "정말 휴식하시겠어요?"
+        #                 },
+        #                 "text": {
+        #                     "type": "mrkdwn",
+        #                     "text": "언제라도 다시 돌아오세요"
+        #                 },
+        #                 "confirm": {
+        #                     "type": "plain_text",
+        #                     "text": "휴식하기"
+        #                 },
+        #                 "deny": {
+        #                     "type": "plain_text",
+        #                     "text": "더 생각해보기"
+        #                 }
+        #             }
+        #         }
+        #     ]
+        # }
     ]
     return blocks
 @app.route("/slack/command", methods=['POST'])
