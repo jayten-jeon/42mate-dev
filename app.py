@@ -114,7 +114,7 @@ def command_view():
     response = slack.conversations.open(users=slack_id, return_im=True)
     channel = response.body['channel']['id']
     if User.query.filter_by(slack_id=slack_id[0]).count():
-        slack.chat.post_message(channel=channel, text="TEST")#blocks=blocks)
+        slack.chat.post_message(channel=channel, text="TEST", blocks=blocks)
     else:
         register(slack_id[0], user_name[0])
         slack.chat.post_message(channel=channel, blocks=blocks)
