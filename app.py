@@ -51,7 +51,10 @@ def send_direct_message(form):
 @app.route("/slack/command", methods=['POST'])
 def command_main():
     command_time = datetime.utcnow()
-    send_eph_message(request.form, command_time)
+    form = request.form
+    print(form)
+    # if is_channel(form):
+    send_eph_message(form, command_time)
     if not (command_time.hour == 14 and command_time.minute > 42):
         # TODO HOUR TO 14, MINUTE TO 42
         send_direct_message(request.form)
