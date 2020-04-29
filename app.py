@@ -27,7 +27,7 @@ def hello():
 
 def is_readytime():
     utctime = datetime.utcnow()
-    if utctime.hour == 14 and utctime.minute > 42:
+    if utctime.hour == 13 and utctime.minute > 20:
         # TODO HOUR TO 14, MINUTE TO 42
         return True
     return False
