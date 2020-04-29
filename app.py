@@ -52,9 +52,8 @@ def send_direct_message(form):
 def command_main():
     command_time = datetime.utcnow()
     form = request.form
-    print(form)
-    # if is_channel(form):
-    send_eph_message(form, command_time)
+    if form.getlist('channel_name')[0] != "directmessage":
+        send_eph_message(form, command_time)
     if not (command_time.hour == 14 and command_time.minute > 42):
         # TODO HOUR TO 14, MINUTE TO 42
         send_direct_message(request.form)
